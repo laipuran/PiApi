@@ -23,8 +23,11 @@ namespace WebApi.Controllers
             IPAddress[] ipadrlist = Dns.GetHostAddresses(name);
             foreach (IPAddress ipa in ipadrlist)
             {
-                if (ipa.AddressFamily == AddressFamily.InterNetworkV6)
-                    ipaddress = ipa.ToString();
+                if (ipa.AddressFamily == AddressFamily.InterNetworkV6
+                && !ipa.ToString().StartsWith("fe80")){
+                    Console.WriteLine(ipa.ToString());
+                    ipaddress = ipa.ToString(); 
+                }
             }
             return new DeviceStatus() {
                 Ip = ipaddress,
