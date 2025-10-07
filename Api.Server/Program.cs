@@ -1,5 +1,5 @@
 
-namespace WebApi
+namespace RaspberryPiApi
 {
     public class Program
     {
