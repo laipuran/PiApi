@@ -1,0 +1,75 @@
+﻿<Window x:Class="Api.Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+        xmlns:local="clr-namespace:Api.Client"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Background="#FFFFFF"
+        WindowStyle="None" Title="树莓派信息"
+        Icon="/rpi.ico"
+        Width="250" Height="500"
+        ShowInTaskbar="False" ResizeMode="NoResize"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MouseEnter="Window_MouseEnter">
+    
+    <StackPanel
+        Margin="10"
+        Orientation="Vertical">
+        <!-- CPU温度 -->
+        <TextBlock Text="CPU温度:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0"/>
+        <TextBlock Text="{Binding DeviceStatus.CpuTemperatureCelsius, StringFormat={}{0}°C}" 
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+
+        <!-- 运行时间 -->
+        <TextBlock Text="运行时间:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+        <TextBlock Text="{Binding DeviceStatus.Uptime}" 
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+
+        <!-- 型号 -->
+        <TextBlock Text="型号:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+        <TextBlock Text="{Binding DeviceStatus.Model}" 
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+
+        <!-- 操作系统版本 -->
+        <TextBlock Text="OS版本:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+        <TextBlock Text="{Binding DeviceStatus.OsVersion}" 
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+
+        <!-- IP地址 -->
+        <TextBlock Text="IP地址:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+        <TextBlock Text="{Binding DeviceStatus.Ip}" 
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+
+        <!-- 内存信息 -->
+        <GroupBox Header="内存信息" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0">
+            <StackPanel>
+                <TextBlock Text="{Binding DeviceStatus.Memory.TotalMB, StringFormat={}总计: {0} MB}"/>
+                <TextBlock Text="{Binding DeviceStatus.Memory.UsedMB, StringFormat={}已用: {0} MB}"/>
+                <TextBlock Text="{Binding DeviceStatus.Memory.AvailableMB, StringFormat={}可用: {0} MB}"/>
+                <TextBlock Text="{Binding DeviceStatus.Memory.UsagePercentage, StringFormat={}使用率: {0}%}"/>
+
+                <!-- 内存使用率进度条 -->
+                <ui:ProgressBar Value="{Binding DeviceStatus.Memory.UsagePercentage}" 
+                                Maximum="100" Height="20" Margin="0,5,0,0"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- 存储信息 -->
+        <GroupBox Header="存储信息" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0">
+            <StackPanel>
+                <TextBlock Text="{Binding DeviceStatus.Storage.Name, StringFormat={}名称: {0}}"/>
+                <TextBlock Text="{Binding DeviceStatus.Storage.TotalGB, StringFormat={}总计: {0} GB}"/>
+                <TextBlock Text="{Binding DeviceStatus.Storage.UsedGB, StringFormat={}已用: {0} GB}"/>
+                <TextBlock Text="{Binding DeviceStatus.Storage.FreeGB, StringFormat={}空闲: {0} GB}"/>
+                <TextBlock Text="{Binding DeviceStatus.Storage.UsagePercentage, StringFormat={}使用率: {0}%}"/>
+
+                <!-- 存储使用率进度条 -->
+                <ui:ProgressBar Value="{Binding DeviceStatus.Storage.UsagePercentage}" 
+                             Maximum="100" Height="20" Margin="0,5,0,0"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</Window>
